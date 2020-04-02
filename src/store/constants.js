@@ -1,0 +1,7 @@
+export const AUTH_REQUEST = "AUTH_REQUEST";
+export const AUTH_SUCCESS = "AUTH_SUCCESS";
+export const AUTH_FAILURE = "AUTH_FAILURE";
+
+export const QUERY_REQUEST = "QUERY_REQUEST";
+export const QUERY_SUCCESS = "QUERY_SUCCSSS";
+export const QUERY_FAILURE = "QUERY_FAILURE";
