@@ -12,9 +12,15 @@ export class BikeMap extends React.Component {
 		return (
 			<Map
 				google={this.props.google}
-				zoom={14}
+				initialCenter={{
+					lat: 43.5890,
+					lng: -79.6441
+				}}
+				zoom={13}
 				style={mapStyle}
-			/>
+			>
+				{this.props.children}
+			</Map>
 		)
 	}
 }

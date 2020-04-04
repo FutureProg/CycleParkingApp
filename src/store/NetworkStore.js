@@ -8,7 +8,7 @@ export const makeNetworkRequest = createAction(MAKE_NETWORK_REQUEST);
 export const receiveNetworkRequest = createAction(NETWORK_REQUEST_SUCCESS);
 export const networkRequestFailure = createAction(NETWORK_REQUEST_FAILURE, (error)=>error)
 
-export const networkState = (state, action) => {
+export const networkState = (state={error:null, loading:false}, action) => {
 	switch(action.type){		
 		case MAKE_NETWORK_REQUEST:
 		return {
@@ -27,9 +27,6 @@ export const networkState = (state, action) => {
 			error: action.payload
 		}
 		default:
-		return {
-			error: null,
-			loading: false			
-		}		
+		return state;
 	}
 };

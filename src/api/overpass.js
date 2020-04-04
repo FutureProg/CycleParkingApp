@@ -1,29 +1,27 @@
-import {createAction} from 'redux-actions'
 import NetworkManager from '../util/NetworkManager';
-import * as Constants from '../store/constants';
 
+
+import {querySuccess, queryRequest, queryFailure,
+	 fetchParkingSuccess, fetchParkingRequest, fetchParkingFailure} from '../store/actions';
 import bikeParkingQuery from '../queries/bike_parking_query';
+
 const endpoint = 'https://overpass.kumi.systems/api/interpreter';
+const network = new NetworkManager();
 
-const queryRequest = createAction(Constants.QUERY_REQUEST);
-const querySuccess = createAction(Constants.QUERY_SUCCESS);
-const queryFailure = createAction(Constants.QUERY_FAILURE);
-
-export const queryOverpass = (query) => (dispatch) => {	
-	dispatch(queryRequest());	
-	const network = new NetworkManager();
+export const fetchParking = () => (dispatch) => {	
+	dispatch(queryRequest());			
 	const pkg = {
 		body: bikeParkingQuery,
 		method: 'post'
 	}
+	dispatch(fetchParkingRequest());
 	network
 		.makeRawRequest(endpoint, pkg)
-		.catch((x) => { 
-			console.log(x);
-			return dispatch(queryFailure());
-		})
+		.catch((x) => { 			
+			dispatch(queryFailure());
+		})			
 		.then((data) => {
 			dispatch(querySuccess())
-			console.log(data)
-		})
+			dispatch(fetchParkingSuccess(data))			
+		}, ()=>{fetchParkingFailure()})
 }
