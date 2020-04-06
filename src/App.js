@@ -23,7 +23,7 @@ class App extends React.Component {
 
     return (
       <div className="App">
-        <BikeMap markerGeoJson={this.props.parking} />
+        <BikeMap markerGeoJson={getMarkers()} />
         <button style={{'zIndex':100, 'position': 'absolute', 'top': 0, 'left':0}} onClick={()=>this.props.queryOverpass()}>Fetch Parking</button>
       </div>
     );
