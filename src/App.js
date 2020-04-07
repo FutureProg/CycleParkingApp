@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 
 import BikeMap from './pages/BikeMap';
 import {fetchParking} from './api/overpass';
+import WindowProgressBar from './components/WindowProgressBar';
 // import MarkerCluster from './components/MarkerCluster';
 
 class App extends React.Component {
@@ -23,6 +24,7 @@ class App extends React.Component {
 
     return (
       <div className="App">
+        <WindowProgressBar/>
         <BikeMap markerGeoJson={getMarkers()} />
         <button style={{'zIndex':100, 'position': 'absolute', 'top': 0, 'left':0}} onClick={()=>this.props.queryOverpass()}>Fetch Parking</button>
       </div>

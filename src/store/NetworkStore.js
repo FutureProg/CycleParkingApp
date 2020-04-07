@@ -1,8 +1,8 @@
 import {createAction} from 'redux-actions'
 
-const MAKE_NETWORK_REQUEST = "MAKE_NETWORK_REQUEST";
-const NETWORK_REQUEST_SUCCESS = "RECEIVE_NETWORK_REQUEST";
-const NETWORK_REQUEST_FAILURE = "NETWORK_REQUEST_FAILURE";
+export const MAKE_NETWORK_REQUEST = "MAKE_NETWORK_REQUEST";
+export const NETWORK_REQUEST_SUCCESS = "RECEIVE_NETWORK_REQUEST";
+export const NETWORK_REQUEST_FAILURE = "NETWORK_REQUEST_FAILURE";
 
 export const makeNetworkRequest = createAction(MAKE_NETWORK_REQUEST);
 export const receiveNetworkRequest = createAction(NETWORK_REQUEST_SUCCESS);

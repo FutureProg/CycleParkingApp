@@ -1,39 +1,50 @@
-import {connect} from 'react-redux';
 import {debug} from './Logger';
 import {makeNetworkRequest,networkRequestFailure,receiveNetworkRequest} from '../store/NetworkStore';
 
 
 class NetworkManager {
 
-	static instance;
+	static _instance;
 
-	constructor(){
-		if(this.instance != null){
-			return this.instance;
+	constructor(){		
+		if(NetworkManager.instance != null){
+			return NetworkManager.instance;
 		}
+		console.log(this);
+		this.setDispatch = this.setDispatch.bind(this);
 		this.makeRequest = this.makeRequest.bind(this);
 		this.receiveResponse = this.receiveResponse.bind(this);
-		this.handleError = this.handleError.bind(this);
-		this.instance = connect(null,mdtp)(NetworkManager);
+		this.handleError = this.handleError.bind(this);		
+		this.dispatch = null;
+		NetworkManager.instance = this;		
+	}
+
+	setDispatch(dispatch) {
+		this.dispatch = dispatch;
+		console.log(this.dispatch);
 	}
 
 	receiveResponse(httpResponse){		
-		debug(httpResponse);		
+		debug(httpResponse);
+		this.dispatch(receiveNetworkRequest())		
 		return httpResponse;
 	}
 
 	handleError(response, data) {
-		debug("Error: ", data);		
+		debug("Error: ", data);	
+		this.dispatch(networkRequestFailure());		
 	}
 
 	makeRawRequest(url, data) {		
+		console.log(this.dispatch);
+		this.dispatch(makeNetworkRequest());
 		return fetch(url,{			
 			...data
 		})		
 		.catch(x => {
 			console.log(x);			
 		})	
-		.then(response => {
+		.then(response => {			
 			var dataPromise = response.json();
 			dataPromise.then( data => {
 				if (!response.ok) {					

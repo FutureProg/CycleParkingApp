@@ -9,11 +9,15 @@ import {Provider} from 'react-redux';
 import reducers from './store';
 
 import * as serviceWorker from './serviceWorker';
+import NetworkManager from './util/NetworkManager';
 
 const windowIfDefined = typeof window === 'undefined' ? null : window;
 const composeEnhancers = process.env.NODE_ENV !== 'production' ? windowIfDefined.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose : compose;
 
 const store = createStore(reducers,composeEnhancers(applyMiddleware(thunk)));
+
+// Init the network manager
+new NetworkManager().setDispatch(store.dispatch);
 
 ReactDOM.render(
 	<Provider store={store}>

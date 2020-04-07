@@ -15,3 +15,16 @@
 	height: 60px;
 	background-position: center;
 }
+
+.window-progress-bar {
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 10px;
+	background: #29C019;
+	transition: width .25s, opacity 1.0s;
+	z-index: 999;
+}
+.window-progress-bar.complete {
+	opacity: 0;
+}
