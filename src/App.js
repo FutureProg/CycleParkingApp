@@ -7,6 +7,11 @@ import WindowProgressBar from './components/WindowProgressBar';
 // import MarkerCluster from './components/MarkerCluster';
 
 class App extends React.Component {
+
+  componentDidMount() {
+    setTimeout(this.props.queryOverpass, 1000);
+  }
+
   render() {
     const getMarkers = () => ({      
       type: 'FeatureCollection',
@@ -25,8 +30,7 @@ class App extends React.Component {
     return (
       <div className="App">
         <WindowProgressBar/>
-        <BikeMap markerGeoJson={getMarkers()} />
-        <button style={{'zIndex':100, 'position': 'absolute', 'top': 0, 'left':0}} onClick={()=>this.props.queryOverpass()}>Fetch Parking</button>
+        <BikeMap markerGeoJson={getMarkers()} />        
       </div>
     );
   }
