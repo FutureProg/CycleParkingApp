@@ -15,6 +15,10 @@ class SearchBar extends React.Component {
 	onSearch() {
 		const searchText = this.inputfield.value;
 		this.props.fetchLocationCoordinates(searchText, this.props.mapState)
+			.then(data => {
+				const location = data.features[0].center;
+				this.props.setMapCenter(location[0], location[1], 16);
+			}, null)
 	}
 
 	render() {

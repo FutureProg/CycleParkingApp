@@ -10,12 +10,13 @@ const geocodingUrl = (searchText, focalPoint, autocomplete=false, endpoint='mapb
 export const fetchLocationCoordinates = (searchText, focalPoint) => (dispatch) => {
 	dispatch(forwardGeocodingRequest());
 	const url = geocodingUrl(searchText, focalPoint);
-	network
+	return network
 	.makeRawRequest(url,null)
 	.then(
 		value => {
 			dispatch(forwardGeocodingSuccess())
 			console.log(value);
+			return value;
 		},
 		value => {
 			dispatch(forwardGeocodingFailure());

@@ -19,6 +19,14 @@ export class BikeMap extends React.Component {
 			zoom: 12
 		}
 		this.map = null;
+		this.setMapCenter = this.setMapCenter.bind(this);
+	}
+
+	setMapCenter(lng, lat, zoom=12) {
+		this.map.flyTo({
+			center: {lng, lat},
+			zoom:zoom		
+		})
 	}
 	
 	componentDidMount() {
@@ -114,7 +122,7 @@ export class BikeMap extends React.Component {
 	render() {
 		return (
 			<div>
-				<SearchBar mapState={this.state}/>
+				<SearchBar mapState={this.state} setMapCenter={this.setMapCenter}/>
 				<div ref={el => this.mapContainer = el} className="mapContainer" />
 			</div>
 		)
