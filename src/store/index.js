@@ -17,4 +17,11 @@ export const parkingState = (state = {data:[]}, action) => {
 	}
 }
 
+export const mapState = (state = {}, action) => {
+	switch(action.type) {
+		default:
+			return state;
+	}
+}
+
 export default combineReducers({networkState, parkingState});

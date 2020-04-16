@@ -25,6 +25,8 @@
 	border: none;
 	border-top-left-radius: 10px;
 	border-bottom-left-radius: 10px;
+	width: 100%;
+	box-sizing: border-box;
 	padding: 16px;
 }
 .search-bar button {	

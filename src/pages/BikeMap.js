@@ -2,6 +2,8 @@ import React from 'react';
 import {connect} from 'react-redux';
 import mapboxgl from 'mapbox-gl';
 
+import SearchBar from '../components/SearchBar';
+
 import '../css/map.css';
 
 import {KEY} from '../key';
@@ -112,6 +114,7 @@ export class BikeMap extends React.Component {
 	render() {
 		return (
 			<div>
+				<SearchBar mapState={this.state}/>
 				<div ref={el => this.mapContainer = el} className="mapContainer" />
 			</div>
 		)
