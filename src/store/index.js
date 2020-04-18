@@ -17,11 +17,22 @@ export const parkingState = (state = {data:[]}, action) => {
 	}
 }
 
-export const mapState = (state = {}, action) => {
+export const mapState = (state = {locationSuggestions: []}, action) => {
 	switch(action.type) {
+		case Constants.FETCH_LOCATION_SUGGESTIONS_SUCCESS:
+			return {
+				...state,
+				locationSuggestions: action.payload.features
+			}
+		case Constants.FETCH_LOCATION_SUGGESTIONS_FAILURE:
+		case Constants.CLEAR_LOCATION_SUGGESTIONS:
+			return {
+				...state,
+				locationSuggestions: []
+			}
 		default:
 			return state;
 	}
 }
 
-export default combineReducers({networkState, parkingState});
+export default combineReducers({networkState, parkingState, mapState});

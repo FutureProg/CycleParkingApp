@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 
-import {fetchLocationCoordinates} from '../api/mapbox';
+import {fetchLocationCoordinates, fetchLocationSuggestions} from '../api/mapbox';
 
 import '../css/components.css';
 
@@ -10,6 +10,8 @@ class SearchBar extends React.Component {
 	constructor(props) {
 		super(props);
 		this.onSearch = this.onSearch.bind(this);
+		this.getSuggestions = this.getSuggestions.bind(this);
+		this.suggestionTimer = null;
 	}
 
 	onSearch() {
@@ -21,15 +23,29 @@ class SearchBar extends React.Component {
 			}, null)
 	}
 
+	getSuggestions() {
+		const searchText = this.inputfield.value;
+		this.props.fetchLocationSuggestions(searchText, this.props.mapState);		
+	}
+
 	render() {
 		const formSubmit = e => {
 			e.preventDefault();
 			this.onSearch()				
 		}
+		
+		const onKeyPress = e => {
+			if (e.target.value.length >= 4){
+				if (this.suggestionTimer != null) {
+					clearTimeout(this.suggestionTimer);
+				}
+				this.suggestionTimer = setTimeout(this.getSuggestions, 750);				
+			}
+		}
 
 		return (
 			<div className="search-bar">
-				<form onSubmit={formSubmit}><input type="text" placeholder="find bike parking" ref={el => this.inputfield = el}/></form>
+				<form onSubmit={formSubmit}><input type="text" onKeyPress={onKeyPress} placeholder="find bike parking" ref={el => this.inputfield = el}/></form>
 				<button onClick={this.onSearch}>GO</button>
 			</div>
 		);
@@ -38,7 +54,12 @@ class SearchBar extends React.Component {
 }
 
 const mdtp = {
-	fetchLocationCoordinates
+	fetchLocationCoordinates,
+	fetchLocationSuggestions
 };
 
-export default connect(null, mdtp)(SearchBar);
+const stp = (state) => ({
+	suggestions: state.mapState.locationSuggestions
+});
+
+export default connect(stp, mdtp)(SearchBar);
