@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 
 import {fetchLocationCoordinates, fetchLocationSuggestions} from '../api/mapbox';
+import {clearLocationSuggestions} from '../store/actions';
 
 import '../css/components.css';
 
@@ -40,13 +41,21 @@ class SearchBar extends React.Component {
 					clearTimeout(this.suggestionTimer);
 				}
 				this.suggestionTimer = setTimeout(this.getSuggestions, 750);				
+			} else {
+				this.props.clearLocationSuggestions()
 			}
 		}
 
+		const suggestions = this.props.suggestions.map((value, index) => (
+			<div className='item' key={index} tabIndex={0}>{value.place_name}</div>
+		))
 		return (
 			<div className="search-bar">
-				<form onSubmit={formSubmit}><input type="text" onKeyPress={onKeyPress} placeholder="find bike parking" ref={el => this.inputfield = el}/></form>
+				<form onSubmit={formSubmit}><input type="text" onChange={onKeyPress} placeholder="find bike parking" ref={el => this.inputfield = el}/></form>
 				<button onClick={this.onSearch}>GO</button>
+				<div className='suggestions'>		
+					{suggestions}				
+				</div>
 			</div>
 		);
 	}
@@ -55,7 +64,8 @@ class SearchBar extends React.Component {
 
 const mdtp = {
 	fetchLocationCoordinates,
-	fetchLocationSuggestions
+	fetchLocationSuggestions,
+	clearLocationSuggestions
 };
 
 const stp = (state) => ({

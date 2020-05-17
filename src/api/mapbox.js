@@ -5,8 +5,8 @@ import {KEY} from '../key';
 
 const network = new NetworkManager();
 
-const geocodingUrl = (searchText, focalPoint, autocomplete=false, endpoint='mapbox.places') => 
-	`https://api.mapbox.com/geocoding/v5/${endpoint}/${searchText}.json?access_token=${KEY}&autocomplete=${autocomplete}&proximity=${focalPoint['lng']}%2C${focalPoint['lat']}`
+const geocodingUrl = (searchText, focalPoint, autocomplete=false, limit=1, endpoint='mapbox.places') => 
+	`https://api.mapbox.com/geocoding/v5/${endpoint}/${searchText}.json?access_token=${KEY}&autocomplete=${autocomplete}&proximity=${focalPoint['lng']}%2C${focalPoint['lat']}&limit=${limit}`
 
 export const fetchLocationCoordinates = (searchText, focalPoint) => (dispatch) => {
 	dispatch(forwardGeocodingRequest());
@@ -27,7 +27,7 @@ export const fetchLocationCoordinates = (searchText, focalPoint) => (dispatch) =
 
 export const fetchLocationSuggestions = (searchText, focalPoint) => (dispatch) => {
 	dispatch(fetchLocationSuggestionsRequest());
-	const url = geocodingUrl(searchText, focalPoint, true);
+	const url = geocodingUrl(searchText, focalPoint, true, 5);
 	return network
 	.makeRawRequest(url,null)
 	.then(
