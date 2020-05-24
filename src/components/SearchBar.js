@@ -46,9 +46,16 @@ class SearchBar extends React.Component {
 			}
 		}
 
-		const suggestions = this.props.suggestions.map((value, index) => (
-			<div className='item' key={index} tabIndex={0}>{value.place_name}</div>
-		))
+		const suggestions = this.props.suggestions.map((value, index) => {
+			const location = value.center;			
+			const goToPoint = () => {
+				this.props.setMapCenter(location[0], location[1], 16);
+				this.props.clearLocationSuggestions();
+				this.inputfield.value = value.place_name;
+			};
+			const onKeyDown = (e) => {if (e.keyCode === 13) goToPoint()};
+			return (<div className='item' key={index} tabIndex={0} onClick={goToPoint} onKeyDown={onKeyDown}>{value.place_name}</div>);
+		})
 		return (
 			<div className="search-bar">
 				<form onSubmit={formSubmit}><input type="text" onChange={onKeyPress} placeholder="find bike parking" ref={el => this.inputfield = el}/></form>
