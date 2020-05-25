@@ -4,6 +4,8 @@ import mapboxgl from 'mapbox-gl';
 
 import SearchBar from '../components/SearchBar';
 
+import {fetchParking} from '../api/overpass';
+
 import '../css/map.css';
 
 import {KEY} from '../key';
@@ -29,13 +31,15 @@ export class BikeMap extends React.Component {
 		})
 	}
 	
-	componentDidMount() {
+	componentDidMount() {		
 		this.map = new mapboxgl.Map({
 			container: this.mapContainer,
-			style: 'mapbox://styles/futureprog/ck8ntydhy13sh1ipr8hh0rbje/draft?key='+KEY,
+			style: 'mapbox://styles/futureprog/ck8ntydhy13sh1ipr8hh0rbje/draft?key='+KEY,			
 			center: [this.state.lng, this.state.lat],
 			zoom: this.state.zoom
 		});
+		const map = this.map;
+		const props = this.props;
 		// this.map.showCollisionBoxes = true
 		this.map.on('move', () => {
 			this.setState({
@@ -43,25 +47,20 @@ export class BikeMap extends React.Component {
 				lat: this.map.getCenter().lat.toFixed(4),
 				zoom: this.map.getZoom().toFixed(2)
 			});
-		});
-	}	
-
-	componentDidUpdate(prevProps) {
-		const prevMarkerCount = prevProps.parking.length;
-		const markerCount = this.props.parking.length;
-		if (prevMarkerCount < markerCount && this.map) {			
-			const idx = prevMarkerCount;	
-			// add markers to map
-			const map = this.map;			
-			if (prevMarkerCount > 0) {
-				map.removeSource('parking');
-				map.removeLayer('clusters');
-				map.removeLayer('cluster-count');
-				map.removeLayer('unclustered-point');				
-			}			
+		});	
+		this.map.on('load', function () {
+			props.queryOverpass();
+			map.addSource('target', {
+				type: 'geojson',
+				data: {
+					type: 'FeatureCollection',
+					features: []
+				},
+				cluster: false					
+			});							
 			map.addSource('parking', {
 				type: 'geojson',
-				data: this.props.markerGeoJson,
+				data: props.markerGeoJson,
 				cluster: true,
 				clusterMaxZoom:18,
 				clusterRadius: 50
@@ -104,18 +103,31 @@ export class BikeMap extends React.Component {
 					'icon-anchor': 'bottom'
 				}	
 			});
+			map.addLayer({
+				id: 'target-symbol',
+				type: 'symbol',
+				source: 'target',
+				layout: {
+					'icon-image': 'TargetRadar',
+					'icon-size': 1.0,
+					'icon-allow-overlap': true
+				}	
+			});	
+		});			
+		map.showCollisionBoxes = true;	
+	}	
 
-			// this.props.parking.slice(idx).forEach(function(marker) {
-
-			// 	// create a HTML element for each feature
-			// 	var el = document.createElement('div');
-			// 	el.className = 'marker';
-			
-			// 	// make a marker for each feature and add to the map
-			// 	new mapboxgl.Marker(el)
-			// 		.setLngLat([marker.lon, marker.lat])
-			// 		.addTo(map);
-			// });
+	componentDidUpdate(prevProps) {
+		if (prevProps.targetLocation !== this.props.targetLocation) {
+			this.map.getSource('target').setData({
+				type: 'FeatureCollection',
+				features: [this.props.target]
+			});
+		}		
+		const prevMarkerCount = prevProps.parking.length;
+		const markerCount = this.props.parking.length;
+		if (prevMarkerCount < markerCount && this.map) {								
+			this.map.getSource('parking').setData(this.props.markerGeoJson);			
 		}			
 	}
 
@@ -130,6 +142,10 @@ export class BikeMap extends React.Component {
 }
 
 const stp = (state) => ({
-	parking: state.parkingState.data
+	parking: state.parkingState.data,
+	map: state.mapState
 })
-export default connect(stp)(BikeMap);
+const mdtp = {
+	queryOverpass: fetchParking
+}
+export default connect(stp, mdtp)(BikeMap);

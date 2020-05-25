@@ -1,5 +1,7 @@
 import { combineReducers } from 'redux';
 import * as Constants from './constants';
+import * as UtilConstants from '../util/Constants';
+
 
 import {networkState} from './NetworkStore';
 
@@ -17,7 +19,7 @@ export const parkingState = (state = {data:[]}, action) => {
 	}
 }
 
-export const mapState = (state = {locationSuggestions: []}, action) => {
+export const mapState = (state = {locationSuggestions: [], target: UtilConstants.EmptyGeoJSON}, action) => {
 	switch(action.type) {
 		case Constants.FETCH_LOCATION_SUGGESTIONS_SUCCESS:
 			return {
@@ -29,6 +31,19 @@ export const mapState = (state = {locationSuggestions: []}, action) => {
 			return {
 				...state,
 				locationSuggestions: []
+			}
+		case Constants.SET_TARGET_LOCATION:
+			return {
+				...state,
+				target: {
+					...UtilConstants.EmptyGeoJSON,
+					features: [action.payload]
+				}
+			}
+		case Constants.CLEAR_TARGET_LOCATION:
+			return {
+				...state,
+				target: UtilConstants.EmptyGeoJSON
 			}
 		default:
 			return state;

@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 
 import {fetchLocationCoordinates, fetchLocationSuggestions} from '../api/mapbox';
-import {clearLocationSuggestions} from '../store/actions';
+import {clearLocationSuggestions, setTargetLocation} from '../store/actions';
 
 import '../css/components.css';
 
@@ -52,6 +52,7 @@ class SearchBar extends React.Component {
 				this.props.setMapCenter(location[0], location[1], 16);
 				this.props.clearLocationSuggestions();
 				this.inputfield.value = value.place_name;
+				this.props.setTargetLocation(value);
 			};
 			const onKeyDown = (e) => {if (e.keyCode === 13) goToPoint()};
 			return (<div className='item' key={index} tabIndex={0} onClick={goToPoint} onKeyDown={onKeyDown}>{value.place_name}</div>);
@@ -72,7 +73,8 @@ class SearchBar extends React.Component {
 const mdtp = {
 	fetchLocationCoordinates,
 	fetchLocationSuggestions,
-	clearLocationSuggestions
+	clearLocationSuggestions,
+	setTargetLocation
 };
 
 const stp = (state) => ({

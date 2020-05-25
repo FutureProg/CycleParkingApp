@@ -17,3 +17,6 @@ export const fetchLocationSuggestionsRequest = createAction(Constants.FETCH_LOCA
 export const fetchLocationSuggestionsSuccess = createAction(Constants.FETCH_LOCATION_SUGGESTIONS_SUCCESS);
 export const fetchLocationSuggestionsFailure = createAction(Constants.FETCH_LOCATION_SUGGESTIONS_FAILURE);
 export const clearLocationSuggestions = createAction(Constants.CLEAR_LOCATION_SUGGESTIONS);
+
+export const setTargetLocation = createAction(Constants.SET_TARGET_LOCATION);
+export const clearTargetLocation = createAction(Constants.CLEAR_TARGET_LOCATION);

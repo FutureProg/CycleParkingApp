@@ -8,8 +8,7 @@ import WindowProgressBar from './components/WindowProgressBar';
 
 class App extends React.Component {
 
-  componentDidMount() {
-    setTimeout(this.props.queryOverpass, 1000);
+  componentDidMount() {    
   }
 
   render() {
@@ -23,9 +22,7 @@ class App extends React.Component {
         },
         properties: value.tags
       }))
-    })
-
-    
+    });
 
     return (
       <div className="App">               
