@@ -78,3 +78,40 @@
 		width: 400px;
 	}
 }
+
+.geolocate-button {
+	position: absolute;
+	bottom: 42px;
+	right: 14px;
+	display: block;
+	width: 29px;
+	height: 29px;
+	padding: 2px;
+	outline: none;
+	border: 0;
+	box-sizing: border-box;
+	background-color: transparent;
+	cursor: pointer;
+	z-index: 1;
+	background: white;
+	border-radius: 5px;
+}
+.geolocate-button:hover {
+	background-color: rgb(233, 233, 233);
+}
+.geolocate-button.active {
+	background-color: rgb(44, 99, 252);
+}
+.control-icon {
+	display: block;
+	width: 100%;
+	height: 100%;
+	background-repeat: no-repeat;
+	background-position: 50%;
+}
+.geolocate-button .control-icon{
+	background-image: url('../images/MyLocation_Black.svg');		
+}
+.geolocate-button.active .control-icon{
+	background-image: url('../images/MyLocation_White.svg');		
+}

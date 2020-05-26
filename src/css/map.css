@@ -28,3 +28,7 @@
 .window-progress-bar.complete {
 	opacity: 0;
 }
+
+button.mapboxgl-ctrl-geolocate {
+	display: none;
+}

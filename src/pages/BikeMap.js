@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import mapboxgl from 'mapbox-gl';
 
 import SearchBar from '../components/SearchBar';
+import GeolocateButton from '../components/GeolocateButton';
 
 import {fetchParking} from '../api/overpass';
 
@@ -21,6 +22,7 @@ export class BikeMap extends React.Component {
 			zoom: 12
 		}
 		this.map = null;
+		this.geolocate = null;
 		this.setMapCenter = this.setMapCenter.bind(this);
 	}
 
@@ -38,6 +40,14 @@ export class BikeMap extends React.Component {
 			center: [this.state.lng, this.state.lat],
 			zoom: this.state.zoom
 		});
+		this.geolocate = new mapboxgl.GeolocateControl({
+			positionOptions: {
+				enableHighAccuracy: true
+			},
+			trackUserLocation: true
+		});
+		this.map.addControl(this.geolocate);
+
 		const map = this.map;
 		const props = this.props;
 		// this.map.showCollisionBoxes = true
@@ -114,7 +124,6 @@ export class BikeMap extends React.Component {
 				}	
 			});	
 		});			
-		map.showCollisionBoxes = true;	
 	}	
 
 	componentDidUpdate(prevProps) {
@@ -134,7 +143,8 @@ export class BikeMap extends React.Component {
 	render() {
 		return (
 			<div>
-				<SearchBar mapState={this.state} setMapCenter={this.setMapCenter}/>
+				<SearchBar mapState={this.state} setMapCenter={this.setMapCenter}/>				
+				<GeolocateButton geolocate={this.geolocate}/>
 				<div ref={el => this.mapContainer = el} className="mapContainer" />
 			</div>
 		)
