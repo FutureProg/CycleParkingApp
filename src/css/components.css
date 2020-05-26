@@ -82,7 +82,7 @@
 .geolocate-button {
 	position: absolute;
 	bottom: 42px;
-	right: 14px;
+	left: 14px;
 	display: block;
 	width: 29px;
 	height: 29px;
