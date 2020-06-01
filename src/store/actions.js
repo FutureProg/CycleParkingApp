@@ -20,3 +20,5 @@ export const clearLocationSuggestions = createAction(Constants.CLEAR_LOCATION_SU
 
 export const setTargetLocation = createAction(Constants.SET_TARGET_LOCATION);
 export const clearTargetLocation = createAction(Constants.CLEAR_TARGET_LOCATION);
+
+export const setPhase = createAction(Constants.SET_PHASE);

@@ -50,4 +50,16 @@ export const mapState = (state = {locationSuggestions: [], target: UtilConstants
 	}
 }
 
-export default combineReducers({networkState, parkingState, mapState});
+export const appState = (state = {phase: UtilConstants.PHASE_MAIN}, action) => {
+	switch(action.type) {
+		case Constants.SET_PHASE:
+			return {
+				...state,
+				phase: action.payload
+			}
+		default:
+			return state;
+	}
+} 
+
+export default combineReducers({networkState, parkingState, mapState, appState});

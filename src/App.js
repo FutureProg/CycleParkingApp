@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 import BikeMap from './pages/BikeMap';
 import {fetchParking} from './api/overpass';
 import WindowProgressBar from './components/WindowProgressBar';
-// import MarkerCluster from './components/MarkerCluster';
+import PhaseManager from './phases/PhaseManager';
 
 class App extends React.Component {
 
@@ -27,6 +27,7 @@ class App extends React.Component {
     return (
       <div className="App">               
         <WindowProgressBar/>
+        <PhaseManager />
         <BikeMap markerGeoJson={getMarkers()} />        
       </div>
     );

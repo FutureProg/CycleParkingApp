@@ -90,8 +90,7 @@
 	outline: none;
 	border: 0;
 	box-sizing: border-box;
-	background-color: transparent;
-	cursor: pointer;
+	background-color: transparent;	
 	z-index: 1;
 	background: white;
 	border-radius: 5px;
