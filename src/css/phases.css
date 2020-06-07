@@ -61,6 +61,15 @@
 	}	
 }
 
+.phase.phase.add-parking-phase-p1 .cross-hair{
+	width: 64px;
+	height: 64px;
+	position: absolute;
+	top: calc(50vh - 32px);
+	bottom: calc(50vh - 32px);
+	left: calc(50vw - 32px);
+	right: calc(50vw - 32px);
+}
 .phase.add-parking-phase-p1 .bottom-bar {
 	position: absolute;
     bottom: 0;

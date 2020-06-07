@@ -1,19 +1,27 @@
 import * as React from 'react';
 import {connect} from 'react-redux';
 
-import Constants from '../util/Constants';
+import * as Constants from '../util/Constants';
+import {setPhase} from '../store/actions';
 
-export default class AddParkingP1 extends React.Component {
+import Crosshair from '../images/Crosshair.svg';
+
+class AddParkingP1 extends React.Component {
 
 	render() {
+		const onCancel = () => {
+			this.props.setPhase(Constants.PHASE_MAIN);
+		}
+
 		return (
 			<div className='phase add-parking-phase-p1'>
-				<div className='bottom-bar'>
+				<img className='cross-hair' src={Crosshair} alt='crosshair' /> 
+				<div className='bottom-bar'>					
 					<div className='prompt'>
 						<p>Place the crosshair over the parking location</p>
 					</div>
 					<div className='button-container'>
-						<button className='neutral'>Cancel</button>
+						<button className='neutral' onClick={onCancel}>Cancel</button>
 						<button className='primary'>Done</button>
 					</div>
 				</div>
@@ -21,3 +29,9 @@ export default class AddParkingP1 extends React.Component {
 		)
 	}
 }
+
+const mdtp = {
+	setPhase
+}
+
+export default connect(null, mdtp)(AddParkingP1);
