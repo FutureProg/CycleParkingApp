@@ -7,9 +7,6 @@
 	z-index: 100;
 	pointer-events: none;
 }
-.phase.main-phase {
-	
-}
 
 .main-phase .action-menu {
 	pointer-events: all;
@@ -61,5 +58,31 @@
 	.main-phase .action-menu button {
 		width: 60px;
 		height: 60px;
-	}
+	}	
+}
+
+.phase.add-parking-phase-p1 .bottom-bar {
+	position: absolute;
+    bottom: 0;
+    left: calc(50vw - 150px);
+    right: calc(50vw - 150px);
+    display: flex;
+	flex-direction: column;	
+	padding-bottom: 42px;
+}
+.phase.add-parking-phase-p1 .bottom-bar button {
+	pointer-events: auto;
+}
+.phase.add-parking-phase-p1 .bottom-bar .prompt {	
+	background: #FFFFFF;
+	border: 1px solid #BDBDBD;
+	border-radius: 2px;
+	text-align: center;
+	padding: 0 16px;
+	margin-bottom: 12px;
+}
+.phase.add-parking-phase-p1 .bottom-bar .button-container {
+	display: flex;
+	justify-content: space-between;
+	flex-direction: row;	
 }

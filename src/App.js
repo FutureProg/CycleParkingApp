@@ -6,9 +6,12 @@ import {fetchParking} from './api/overpass';
 import WindowProgressBar from './components/WindowProgressBar';
 import PhaseManager from './phases/PhaseManager';
 
+import './App.css';
+
 class App extends React.Component {
 
-  componentDidMount() {    
+  componentDidMount() {
+    
   }
 
   render() {

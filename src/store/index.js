@@ -19,7 +19,7 @@ export const parkingState = (state = {data:[]}, action) => {
 	}
 }
 
-export const mapState = (state = {locationSuggestions: [], target: UtilConstants.EmptyGeoJSON}, action) => {
+export const mapState = (state = {locationSuggestions: [], target: UtilConstants.EmptyGeoJSON, center: {lat: null, lng: null}}, action) => {
 	switch(action.type) {
 		case Constants.FETCH_LOCATION_SUGGESTIONS_SUCCESS:
 			return {
