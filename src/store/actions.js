@@ -22,3 +22,5 @@ export const setTargetLocation = createAction(Constants.SET_TARGET_LOCATION);
 export const clearTargetLocation = createAction(Constants.CLEAR_TARGET_LOCATION);
 
 export const setPhase = createAction(Constants.SET_PHASE);
+
+export const updateMapState = createAction(Constants.UPDATE_MAP_STATE);

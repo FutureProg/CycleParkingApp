@@ -6,6 +6,7 @@ import SearchBar from '../components/SearchBar';
 import GeolocateButton from '../components/GeolocateButton';
 
 import {fetchParking} from '../api/overpass';
+import {updateMapState} from '../store/actions';
 
 import '../css/map.css';
 
@@ -53,9 +54,13 @@ export class BikeMap extends React.Component {
 		// this.map.showCollisionBoxes = true
 		this.map.on('move', () => {
 			this.setState({
-				lng: this.map.getCenter().lng.toFixed(4),
-				lat: this.map.getCenter().lat.toFixed(4),
+				lng: this.map.getCenter().lng.toFixed(5),
+				lat: this.map.getCenter().lat.toFixed(5),
 				zoom: this.map.getZoom().toFixed(2)
+			});
+			this.props.updateReduxMapState({
+				center: {lat: this.state.lat, lng: this.state.lng},
+				zoom: this.state.zoom
 			});
 		});	
 		this.map.on('load', function () {
@@ -152,10 +157,10 @@ export class BikeMap extends React.Component {
 }
 
 const stp = (state) => ({
-	parking: state.parkingState.data,
-	map: state.mapState
+	parking: state.parkingState.data
 })
 const mdtp = {
-	queryOverpass: fetchParking
+	queryOverpass: fetchParking,
+	updateReduxMapState: updateMapState
 }
 export default connect(stp, mdtp)(BikeMap);

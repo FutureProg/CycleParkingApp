@@ -11,6 +11,10 @@ button.primary {
 button.primary:active {
   background: #164770;
 }
+button.primary:disabled {
+  background: rgb(107, 136, 160);
+  opacity: 0.8;
+}
 button.neutral {
   background: #FFFFFF;
   border: 1px solid #979797;

@@ -40,27 +40,6 @@
 	background-image: url('../images/add-white-18dp.svg');
 }
 
-@media only screen and (min-width: 768px) {
-	.main-phase .action-menu .add-button::before {
-		position: absolute;
-		padding: 7px 4px;		
-		width: 80px;				
-		right: 66px;
-		top: 18px;
-		bottom: 14px;		
-		content: 'Add Parking';
-		background: rgba(255, 255, 255, 0.637);
-		color: black;
-		z-index: -1;	
-		border-radius: 5px;	
-	}
-
-	.main-phase .action-menu button {
-		width: 60px;
-		height: 60px;
-	}	
-}
-
 .phase.phase.add-parking-phase-p1 .cross-hair{
 	width: 64px;
 	height: 64px;
@@ -94,4 +73,25 @@
 	display: flex;
 	justify-content: space-between;
 	flex-direction: row;	
+}
+
+@media only screen and (min-width: 768px) {
+	.main-phase .action-menu .add-button::before {
+		position: absolute;
+		padding: 7px 4px;		
+		width: 80px;				
+		right: 66px;
+		top: 18px;
+		bottom: 14px;		
+		content: 'Add Parking';
+		background: rgba(255, 255, 255, 0.637);
+		color: black;
+		z-index: -1;	
+		border-radius: 5px;	
+	}
+
+	.main-phase .action-menu button {
+		width: 60px;
+		height: 60px;
+	}	
 }

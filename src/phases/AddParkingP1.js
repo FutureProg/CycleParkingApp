@@ -12,17 +12,17 @@ class AddParkingP1 extends React.Component {
 		const onCancel = () => {
 			this.props.setPhase(Constants.PHASE_MAIN);
 		}
-
+		const minZoom = 18;
 		return (
-			<div className='phase add-parking-phase-p1'>
-				<img className='cross-hair' src={Crosshair} alt='crosshair' /> 
+			<div className='phase add-parking-phase-p1'>				
+				<img className='cross-hair' src={Crosshair} alt='crosshair' />			
 				<div className='bottom-bar'>					
 					<div className='prompt'>
-						<p>Place the crosshair over the parking location</p>
+						<p>{this.props.mapState.zoom >= minZoom ? "Place the crosshair over the parking location" : "Zoom into the parking location"}</p>
 					</div>
 					<div className='button-container'>
 						<button className='neutral' onClick={onCancel}>Cancel</button>
-						<button className='primary'>Done</button>
+						<button className='primary' disabled={this.props.mapState.zoom < minZoom}>Done</button>
 					</div>
 				</div>
 			</div>
@@ -30,8 +30,12 @@ class AddParkingP1 extends React.Component {
 	}
 }
 
+const stp = (state) => ({
+	mapState: state.mapState
+})
+
 const mdtp = {
 	setPhase
 }
 
-export default connect(null, mdtp)(AddParkingP1);
+export default connect(stp, mdtp)(AddParkingP1);
