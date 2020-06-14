@@ -7,6 +7,7 @@ import GeolocateButton from '../components/GeolocateButton';
 
 import {fetchParking} from '../api/overpass';
 import {updateMapState} from '../store/actions';
+import * as UConstants from '../util/Constants'
 
 import '../css/map.css';
 
@@ -142,13 +143,33 @@ export class BikeMap extends React.Component {
 		const markerCount = this.props.parking.length;
 		if (prevMarkerCount < markerCount && this.map) {								
 			this.map.getSource('parking').setData(this.props.markerGeoJson);			
-		}			
+		}
+	}
+
+	disable() {
+		this.map.boxZoom.disable();
+		this.map.scrollZoom.disable();
+		this.map.dragPan.disable();
+		this.map.dragRotate.disable();
+		this.map.keyboard.disable();
+		this.map.doubleClickZoom.disable();
+		this.map.touchZoomRotate.disable();	
+	}
+
+	enable() {
+		this.map.boxZoom.enable();
+		this.map.scrollZoom.enable();
+		this.map.dragPan.enable();
+		this.map.dragRotate.enable();
+		this.map.keyboard.enable();
+		this.map.doubleClickZoom.enable();
+		this.map.touchZoomRotate.enable();
 	}
 
 	render() {
 		return (
 			<div>
-				<SearchBar mapState={this.state} setMapCenter={this.setMapCenter}/>				
+				{this.props.phase === UConstants.PHASE_ADD_P2? null : <SearchBar mapState={this.state} setMapCenter={this.setMapCenter}/>}
 				<GeolocateButton geolocate={this.geolocate}/>
 				<div ref={el => this.mapContainer = el} className="mapContainer" />
 			</div>
@@ -157,7 +178,8 @@ export class BikeMap extends React.Component {
 }
 
 const stp = (state) => ({
-	parking: state.parkingState.data
+	parking: state.parkingState.data,
+	phase: state.appState.phase
 })
 const mdtp = {
 	queryOverpass: fetchParking,
