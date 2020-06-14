@@ -34,6 +34,7 @@ class AddParkingP2 extends React.Component {
 
 		const submit = (evt) => {
 			evt.preventDefault();
+			alert("To be implemented soon");
 		}
 		const back = (evt) => {
 			evt.preventDefault();
