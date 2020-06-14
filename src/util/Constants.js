@@ -3,7 +3,7 @@ import BikeRack from '../images/BikeRack.png';
 import BikeWave from '../images/BikeWave.png';
 import BikeWallLoops from '../images/BikeWallLoops.png';
 import BikeAnchor from '../images/BikeAnchor.jpg';
-import BikeLocker from '../imags/BikeLocker.jpg';
+import BikeLocker from '../images/BikeLocker.jpg';
 import BikeShed from '../images/BikeShed.jpeg';
 import BikeBollard from '../images/BikeBollard.jpeg';
 import BikeGroundSlot from '../images/BikeGroundSlot.png';

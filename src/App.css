@@ -1,4 +1,4 @@
-button.primary {
+button.primary, input[type='submit'].primary {
 	background: #32A2FF;
 	border: 1px solid #164770;
   border-radius: 5px;
@@ -8,10 +8,10 @@ button.primary {
   font-weight: 600;
   color: #FFFFFF;
 }
-button.primary:active {
+button.primary:active, input[type='submit'].primary:active {
   background: #164770;
 }
-button.primary:disabled {
+button.primary:disabled, input[type='submit'].primary:disabled {
   background: rgb(107, 136, 160);
   opacity: 0.8;
 }
@@ -28,7 +28,7 @@ button.neutral:active {
   background: #979797;
 }
 
-button.primary, button.neutral {
+button.primary, button.neutral, input[type='submit'].primary {
   height: 45px;  
   padding: 0 24px;
 }
