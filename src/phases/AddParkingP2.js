@@ -3,6 +3,8 @@ import * as React from 'react';
 import {connect} from 'react-redux';
 import {ParkingOptions} from '../util/Constants';
 
+import Crosshair from '../images/Crosshair.svg';
+
 class AddParkingP2 extends React.Component {
 
 	constructor(props) {
@@ -28,7 +30,8 @@ class AddParkingP2 extends React.Component {
 		));	
 		return (
 			<div className='phase add-parking-phase-p2'>
-				<div className='bottom-form'>
+				<img className='cross-hair' src={Crosshair} alt='crosshair' />			
+				<form className='bottom-form'>
 					<div className='form-title'>New Parking</div>
 					<div className='form-item'>
 						<label className='big' for='capacity'>Capacity</label>
@@ -36,11 +39,15 @@ class AddParkingP2 extends React.Component {
 					</div>
 					<div className='form-item'>
 						<label className='big'>Type</label>		
-						<div style={{marginTop: '8px'}}>
+						<div style={{marginTop: '8px'}} className='parking-option-list'>
 							{parkingRender}
 						</div>
 					</div>
-				</div>	
+					<div className='button-row'>
+						<button className='neutral'>Back</button>
+						<input type='submit' onClick={(e) => {e.preventDefault()}} />
+					</div>
+				</form>	
 			</div>
 		)
 	}

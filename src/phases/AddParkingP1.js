@@ -12,6 +12,9 @@ class AddParkingP1 extends React.Component {
 		const onCancel = () => {
 			this.props.setPhase(Constants.PHASE_MAIN);
 		}
+		const onDone = () => {
+			this.props.setPhase(Constants.PHASE_ADD_P2);
+		}
 		const minZoom = 18;
 		return (
 			<div className='phase add-parking-phase-p1'>				
@@ -22,7 +25,7 @@ class AddParkingP1 extends React.Component {
 					</div>
 					<div className='button-container'>
 						<button className='neutral' onClick={onCancel}>Cancel</button>
-						<button className='primary' disabled={this.props.mapState.zoom < minZoom}>Done</button>
+						<button className='primary' disabled={this.props.mapState.zoom < minZoom} onClick={onDone}>Done</button>
 					</div>
 				</div>
 			</div>

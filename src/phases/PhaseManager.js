@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import * as Constants from '../util/Constants';
 import MainPhase from './MainPhase';
 import AddParkingP1 from './AddParkingP1';
+import AddParkingP2 from './AddParkingP2';
 
 class PhaseManager extends React.Component {
 	
@@ -13,6 +14,8 @@ class PhaseManager extends React.Component {
 				return (<MainPhase />);
 			case Constants.PHASE_ADD_P1:
 				return (<AddParkingP1 />);
+			case Constants.PHASE_ADD_P2:
+				return (<AddParkingP2 />);
 			default: 
 				return null;
 		}				

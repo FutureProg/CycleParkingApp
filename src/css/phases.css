@@ -40,7 +40,7 @@
 	background-image: url('../images/add-white-18dp.svg');
 }
 
-.phase.phase.add-parking-phase-p1 .cross-hair{
+.phase.phase.add-parking-phase-p1 .cross-hair, .phase.phase.add-parking-phase-p2 .cross-hair{
 	width: 64px;
 	height: 64px;
 	position: absolute;
@@ -73,6 +73,57 @@
 	display: flex;
 	justify-content: space-between;
 	flex-direction: row;	
+}
+
+.phase.add-parking-phase-p2 {
+	pointer-events: auto;	
+}
+.phase.add-parking-phase-p2 .bottom-form {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	z-index: 1;
+
+	padding: 16px 0 0 16px;
+
+	background: #FFFFFF;
+	border: 1px solid #E5E5E5;
+	box-shadow: 0 2px 4px 0 rgba(0,0,0,0.50);
+	border-radius: 10px 10px 0 0;
+}
+.phase.add-parking-phase-p2 .bottom-form .form-title {
+	font-weight: 600;
+	font-size: 18px;
+	color: #000000;	
+}
+.phase.phase.add-parking-phase-p2 .bottom-form label.big {
+	font-weight: 400;
+	font-size: 16px;
+	color: #000000;	
+}
+
+.phase.phase.add-parking-phase-p2 .bottom-form .parking-option-list {
+	width: 100%;
+	overflow-x: scroll;
+}
+.phase.phase.add-parking-phase-p2 .bottom-form .parking-option {
+	position: relative;
+	width: 150px;
+	height: 120px;
+}
+.phase.phase.add-parking-phase-p2 .bottom-form .parking-option input[type='radio'] {
+	position: absolute;
+	width: 100%;
+	height: 100%;	
+}
+
+
+.phase.phase.phase.add-parking-phase-p2 .bottom-form .parking-option label {
+	font-weight: 200;
+	font-size: 14px;
+	color: #000000;
+	text-align: center;
 }
 
 @media only screen and (min-width: 768px) {
