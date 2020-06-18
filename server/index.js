@@ -1,7 +1,7 @@
 const express = require('express');
 const credentials = require('./credentials');
 const app = express();
-const port = 5001;'
+const port = 5001;
 
 app.get('/', (req, res) => res.send('Hey, what are you doing here?'));
 
