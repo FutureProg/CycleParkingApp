@@ -32,9 +32,21 @@ class AddParkingP2 extends React.Component {
 			</div>
 		));	
 
-		const submit = (evt) => {
-			evt.preventDefault();
+		const submit = (evt) => {			
+			evt.preventDefault();			
 			alert("To be implemented soon");
+			const data = new FormData(evt.target);
+			const parkingType = data.get('type');
+			const parkingCapacity = data.get('capacity');			
+			if (parkingType === null) {
+				alert("Please select a parking type");
+				return;
+			}
+			if (parkingCapacity < 0) {
+				alert("Please enter a capacity that is 0 or greater");
+				return;
+			}			
+			
 		}
 		const back = (evt) => {
 			evt.preventDefault();
@@ -44,21 +56,21 @@ class AddParkingP2 extends React.Component {
 		return (
 			<div className='phase add-parking-phase-p2'>
 				<img className='cross-hair' src={Crosshair} alt='crosshair' />			
-				<form className='bottom-form'>
+				<form className='bottom-form' onSubmit={submit}>
 					<div className='form-title'>New Parking</div>
 					<div className='form-item'>
-						<label className='big' htmlFor='capacity'>Capacity</label>
-						<input type='number' id='capacity'/>
+						<label className='big' htmlFor='capacity'>Capacity (optional): </label>
+						<input type='number' id='capacity' name='capacity' min="0"/>
 					</div>
 					<div className='form-item' style={{marginLeft: '0'}}>
-						<label className='big' style={{marginLeft: '16px'}}>Type</label>		
+						<label className='big' style={{marginLeft: '16px'}}>Type<span style={{color:'red'}}>*</span></label>		
 						<div style={{marginTop: '8px'}} className='parking-option-list'>
 							{parkingRender}
 						</div>
 					</div>
 					<div className='button-row'>
-						<button className='neutral' onClick={back}>Back</button>
-						<input type='submit' className='primary' onClick={submit} />
+						<button type='button' className='neutral' onClick={back}>Back</button>
+						<input type='submit' className='primary'/>
 					</div>
 				</form>	
 			</div>

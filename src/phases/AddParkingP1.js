@@ -21,7 +21,7 @@ class AddParkingP1 extends React.Component {
 				<img className='cross-hair' src={Crosshair} alt='crosshair' />			
 				<div className='bottom-bar'>					
 					<div className='prompt'>
-						<p>{this.props.mapState.zoom >= minZoom ? "Place the crosshair over the parking location" : "Zoom into the parking location"}</p>
+						<p>{this.props.mapState.zoom >= minZoom ? "Place the crosshair over the parking location" : "Zoom further into the parking location"}</p>
 					</div>
 					<div className='button-container'>
 						<button className='neutral' onClick={onCancel}>Cancel</button>
