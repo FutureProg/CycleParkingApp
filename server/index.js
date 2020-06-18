@@ -38,7 +38,10 @@ app.post('/create-parking', (req, res)=>{
 			`
 		})
 		.then((response) => {
-			if(!response.ok) throw new Error(response.status);
+			if(!response.ok) {
+				res.sendStatus(response.status);
+				throw new Error(response.status);
+			}			
 			return response.text();
 		})
 		.then((nodeID) => {			
@@ -61,7 +64,10 @@ app.post('/create-parking', (req, res)=>{
 			</osm>`
 	})
 	.then((response) => {
-		if (!response.ok) throw new Error(response.status);
+		if (!response.ok) {
+			res.sendStatus(response.status);
+			throw new Error(response.status);
+		}
 		return response.text();
 	})
 	.then((changesetID) => makeNode(changesetID));
