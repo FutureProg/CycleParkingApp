@@ -23,7 +23,7 @@ app.post('/create-parking', (req, res)=>{
 		const capacity = req.params['capacity']
 		fetch('https://api.openstreetmap.org/api/0.6/node/create', {	 
 			headers: new Headers({
-				'Authorization': `Basic ${base64.encode(`${credentials.user}:${credentials.pass}`)}`,
+				'Authorization': `Basic ${new Buffer(`${credentials.user}:${credentials.pass}`).toString('base64')}`,
 				'Content-Type': 'application/xml'
 			}),
 			method: 'PUT',
@@ -51,7 +51,7 @@ app.post('/create-parking', (req, res)=>{
 
 	fetch('https://api.openstreetmap.org/api/0.6/changeset/create', {	 
 		headers: new Headers({
-			'Authorization': `Basic ${base64.encode(`${credentials.user}:${credentials.pass}`)}`,
+			'Authorization': `Basic ${new Buffer(`${credentials.user}:${credentials.pass}`).toString('base64')}`,
 			'Content-Type': 'application/xml'
 		}),
 		method: 'PUT',
