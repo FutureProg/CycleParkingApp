@@ -11,7 +11,8 @@ class AddParkingP2 extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			center: null
+			center: null,
+			loading: false
 		};
 	}
 
@@ -34,7 +35,6 @@ class AddParkingP2 extends React.Component {
 
 		const submit = (evt) => {			
 			evt.preventDefault();			
-			alert("To be implemented soon");
 			const data = new FormData(evt.target);
 			const parkingType = data.get('type');
 			const parkingCapacity = data.get('capacity');			
@@ -46,7 +46,30 @@ class AddParkingP2 extends React.Component {
 				alert("Please enter a capacity that is 0 or greater");
 				return;
 			}			
-			
+			this.setState({
+				loading: true
+			})
+			fetch('http://localhost:5001/create-parking',{
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				method: 'POST',
+				body: JSON.stringify({
+					lat: this.state.center.lat,
+					lon: this.state.center.lng,
+					type: parkingType,
+					capacity: parkingCapacity === 0? null : parkingCapacity
+				})
+			})
+			.then((response) => {
+				if(!response.ok) {
+					alert(`An error occured, please try again later. Error code: ${response.status}`);					
+				} else {
+					alert("Thank you for contributing! It should appear in a few hours.");
+				}				
+				this.setState({loading:true});
+				this.props.setPhase(Constants.PHASE_MAIN);				
+			})
 		}
 		const back = (evt) => {
 			evt.preventDefault();
@@ -69,8 +92,9 @@ class AddParkingP2 extends React.Component {
 						</div>
 					</div>
 					<div className='button-row'>
-						<button type='button' className='neutral' onClick={back}>Back</button>
-						<input type='submit' className='primary'/>
+						<button type='button' className='neutral' onClick={back} enabled={(!this.state.loading)+""}>Back</button>
+						{this.state.loading? <p style={{fontWeight:'bold'}}>Submitting parking spot to servers...</p>:null}
+						<input type='submit' className='primary' enabled={(!this.state.loading)+""}/>
 					</div>
 				</form>	
 			</div>

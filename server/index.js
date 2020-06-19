@@ -1,9 +1,20 @@
 const express = require('express');
+const fetch = require('node-fetch');
+const Headers = fetch.Headers;
 const credentials = require('./credentials');
 const app = express();
+const bodyParser = require('body-parser');
+app.use(bodyParser.json()); // support json encoded bodies
+app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
+
 const port = 5001;
 
 app.get('/', (req, res) => res.send('Hey, what are you doing here?'));
+
+app.post('/test', (req, res) => {
+	console.log(req.body)
+	res.send(200);	
+})
 
 /**
  * Route to create parking. Creates a changeset and a node for the specified
@@ -15,15 +26,23 @@ app.get('/', (req, res) => res.send('Hey, what are you doing here?'));
  * capacity: (optional) the number of bicycles that can fit in the parking facility
  */
 app.post('/create-parking', (req, res)=>{
-
 	const makeNode = (changeset) => {
-		const lat = req.params['lat']
-		const lon = req.params['lon']
-		const type = req.params['type']
-		const capacity = req.params['capacity']
+		const lat = req.body['lat']
+		const lon = req.body['lon']
+		const type = req.body['type']
+		const capacity = req.body['capacity']
+		console.log(`
+		<osm>
+			<node changeset="${changeset}" lat="${lat}" lon="${lon}">
+				<tag k='bicycle_parking' v='${type}' />
+				<tag k='amenity' v='bicycle_parking' />
+				${!capacity? '' : `<tag k='capacity' v='${capacity}'/>`}
+			</node>
+		</osm>
+		`)		
 		fetch('https://api.openstreetmap.org/api/0.6/node/create', {	 
 			headers: new Headers({
-				'Authorization': `Basic ${new Buffer(`${credentials.user}:${credentials.pass}`).toString('base64')}`,
+				'Authorization': `Basic ${Buffer.from(`${credentials.user}:${credentials.pass}`).toString('base64')}`,
 				'Content-Type': 'application/xml'
 			}),
 			method: 'PUT',
@@ -51,7 +70,7 @@ app.post('/create-parking', (req, res)=>{
 
 	fetch('https://api.openstreetmap.org/api/0.6/changeset/create', {	 
 		headers: new Headers({
-			'Authorization': `Basic ${new Buffer(`${credentials.user}:${credentials.pass}`).toString('base64')}`,
+			'Authorization': `Basic ${Buffer.from(`${credentials.user}:${credentials.pass}`).toString('base64')}`,
 			'Content-Type': 'application/xml'
 		}),
 		method: 'PUT',
