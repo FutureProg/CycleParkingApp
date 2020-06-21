@@ -2,19 +2,17 @@ const express = require('express');
 const fetch = require('node-fetch');
 const Headers = fetch.Headers;
 const credentials = require('./credentials');
+var cors = require('cors');
 const app = express();
 const bodyParser = require('body-parser');
+
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
+app.use(cors());
 
 const port = 5001;
 
 app.get('/', (req, res) => res.send('Hey, what are you doing here?'));
-
-app.post('/test', (req, res) => {
-	console.log(req.body)
-	res.send(200);	
-})
 
 /**
  * Route to create parking. Creates a changeset and a node for the specified
@@ -25,21 +23,12 @@ app.post('/test', (req, res) => {
  * type: the type of bicycle parking
  * capacity: (optional) the number of bicycles that can fit in the parking facility
  */
-app.post('/create-parking', (req, res)=>{
+app.post('/create-parking', cors(), (req, res)=>{
 	const makeNode = (changeset) => {
 		const lat = req.body['lat']
 		const lon = req.body['lon']
 		const type = req.body['type']
-		const capacity = req.body['capacity']
-		console.log(`
-		<osm>
-			<node changeset="${changeset}" lat="${lat}" lon="${lon}">
-				<tag k='bicycle_parking' v='${type}' />
-				<tag k='amenity' v='bicycle_parking' />
-				${!capacity? '' : `<tag k='capacity' v='${capacity}'/>`}
-			</node>
-		</osm>
-		`)		
+		const capacity = req.body['capacity']	
 		fetch('https://api.openstreetmap.org/api/0.6/node/create', {	 
 			headers: new Headers({
 				'Authorization': `Basic ${Buffer.from(`${credentials.user}:${credentials.pass}`).toString('base64')}`,
