@@ -49,7 +49,7 @@ class AddParkingP2 extends React.Component {
 			this.setState({
 				loading: true
 			})
-			fetch('http://159.203.63.171:5001/create-parking',{
+			fetch('https://nickmorrison.me:5001/create-parking',{
 				headers: {
 					'Content-Type': 'application/json'
 				},
