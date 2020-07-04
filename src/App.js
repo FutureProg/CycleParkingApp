@@ -5,8 +5,10 @@ import BikeMap from './pages/BikeMap';
 import {fetchParking} from './api/overpass';
 import WindowProgressBar from './components/WindowProgressBar';
 import PhaseManager from './phases/PhaseManager';
+import MessageModal from './components/MessageModal';
 
 import './App.css';
+import { MESSAGE_TYPE_SUCCESS } from './util/Constants';
 
 class App extends React.Component {
 
@@ -30,6 +32,7 @@ class App extends React.Component {
     return (
       <div className="App">               
         <WindowProgressBar/>
+        <MessageModal messageType={MESSAGE_TYPE_SUCCESS} message={"Thank you for contributing!"} />
         <PhaseManager />
         <BikeMap markerGeoJson={getMarkers()} />        
       </div>

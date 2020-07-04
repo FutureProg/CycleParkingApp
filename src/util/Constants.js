@@ -18,6 +18,9 @@ export const PHASE_MAIN = 'PHASE_MAIN';
 export const PHASE_ADD_P1 = 'PHASE_ADD_P1';
 export const PHASE_ADD_P2 = 'PHASE_ADD_P2';
 
+export const MESSAGE_TYPE_ERROR = "MSG_TYPE_ERROR";
+export const MESSAGE_TYPE_SUCCESS = "MSG_TYPE_SUCCESS";
+
 export const ParkingOptions = [
 	{
 		value: 'stands',

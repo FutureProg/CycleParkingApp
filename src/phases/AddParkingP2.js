@@ -69,7 +69,9 @@ class AddParkingP2 extends React.Component {
 				}				
 				this.setState({loading:true});
 				this.props.setPhase(Constants.PHASE_MAIN);				
-			})
+			}, (reason) => {
+				alert(`An error occured, please try again later. Error code: ${reason}`);
+			});
 		}
 		const back = (evt) => {
 			evt.preventDefault();
