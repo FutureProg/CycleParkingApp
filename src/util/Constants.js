@@ -20,6 +20,7 @@ export const PHASE_ADD_P2 = 'PHASE_ADD_P2';
 
 export const MESSAGE_TYPE_ERROR = "MSG_TYPE_ERROR";
 export const MESSAGE_TYPE_SUCCESS = "MSG_TYPE_SUCCESS";
+export const MESSAGE_TYPE_NEUTRAL = "MSG_TYPE_NEUTRAL";
 
 export const ParkingOptions = [
 	{

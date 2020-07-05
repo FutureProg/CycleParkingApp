@@ -67,4 +67,27 @@ export const appState = (state = {phase: UtilConstants.PHASE_MAIN}, action) => {
 	}
 } 
 
-export default combineReducers({networkState, parkingState, mapState, appState});
+const messageModalDefault = {
+	message: null,
+	visible: false,
+	messageType: null
+}
+export const messageModalState = (state = messageModalDefault, action) => {
+	switch(action.type) {	
+		case Constants.OPEN_MESSAGE_MODAL:
+			return {
+				...state,
+				...action.payload,
+				visible: true				
+			}
+		case Constants.CLOSE_MESSAGE_MODAL:
+			return {
+				...state,
+				visible: false
+			}
+		default:
+			return state;			
+	}
+}
+
+export default combineReducers({networkState, parkingState, mapState, appState, messageModalState});

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {connect} from 'react-redux';
 
-import {setPhase} from '../store/actions';
+import {setPhase, openMessageModal} from '../store/actions';
 import * as Constants from '../util/Constants';
 
 import Crosshair from '../images/Crosshair.svg';
@@ -39,11 +39,11 @@ class AddParkingP2 extends React.Component {
 			const parkingType = data.get('type');
 			const parkingCapacity = data.get('capacity');			
 			if (parkingType === null) {
-				alert("Please select a parking type");
+				this.props.openMessageModal("Please select a parking type", Constants.MESSAGE_TYPE_NEUTRAL);
 				return;
 			}
 			if (parkingCapacity < 0) {
-				alert("Please enter a capacity that is 0 or greater");
+				this.props.openMessageModal("Please enter a capacity that is 0 or greater", Constants.MESSAGE_TYPE_NEUTRAL);
 				return;
 			}			
 			this.setState({
@@ -63,14 +63,16 @@ class AddParkingP2 extends React.Component {
 			})
 			.then((response) => {
 				if(!response.ok) {
-					alert(`An error occured, please try again later. Error code: ${response.status}`);					
+					this.props.openMessageModal(`An error occured, please try again later. Error code: ${response.status}`, Constants.MESSAGE_TYPE_ERROR);					
 				} else {
-					alert("Thank you for contributing! It should appear in a few hours.");
+					this.props.openMessageModal("Thank you for contributing! Your submission should appear momentarily.", Constants.MESSAGE_TYPE_SUCCESS);
 				}				
-				this.setState({loading:true});
+				this.setState({loading:false});
 				this.props.setPhase(Constants.PHASE_MAIN);				
 			}, (reason) => {
-				alert(`An error occured, please try again later. Error code: ${reason}`);
+				this.props.openMessageModal(`An error occured, please try again later.`, Constants.MESSAGE_TYPE_ERROR);
+				this.setState({loading:false});
+				this.props.setPhase(Constants.PHASE_MAIN);	
 			});
 		}
 		const back = (evt) => {
@@ -108,7 +110,8 @@ const stp = (state) => ({
 	mapState: state.mapState
 });
 const dtp = {
-	setPhase
+	setPhase,
+	openMessageModal
 }
 
 export default connect(stp, dtp)(AddParkingP2);

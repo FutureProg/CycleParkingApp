@@ -32,7 +32,7 @@ class App extends React.Component {
     return (
       <div className="App">               
         <WindowProgressBar/>
-        <MessageModal messageType={MESSAGE_TYPE_SUCCESS} message={"Thank you for contributing!"} />
+        {this.props.msgModalVisible? <MessageModal /> : null }
         <PhaseManager />
         <BikeMap markerGeoJson={getMarkers()} />        
       </div>
@@ -41,7 +41,8 @@ class App extends React.Component {
 }
 
 const stp = (state) => ({
-  parking: state.parkingState.data
-})
+  parking: state.parkingState.data,
+  msgModalVisible: state.messageModalState.visible
+});
 const mdtp = {queryOverpass: fetchParking};
 export default connect(stp, mdtp)(App);
