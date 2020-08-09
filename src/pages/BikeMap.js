@@ -4,6 +4,7 @@ import mapboxgl from 'mapbox-gl';
 
 import SearchBar from '../components/SearchBar';
 import GeolocateButton from '../components/GeolocateButton';
+import MapViewButton from '../components/MapViewButton';
 
 import {fetchParking} from '../api/overpass';
 import {updateMapState} from '../store/actions';
@@ -13,6 +14,8 @@ import '../css/map.css';
 
 import {KEY} from '../key';
 mapboxgl.accessToken = KEY;
+const BASE_MAP_STYLE = 'mapbox://styles/futureprog/ck8ntydhy13sh1ipr8hh0rbje/draft?key='+KEY;
+const SATELLITE_MAP_STYLE = 'mapbox://styles/futureprog/ckdmn4me00c4j1iml9iu1yayf';
 
 export class BikeMap extends React.Component {
 
@@ -26,6 +29,7 @@ export class BikeMap extends React.Component {
 		this.map = null;
 		this.geolocate = null;
 		this.setMapCenter = this.setMapCenter.bind(this);
+		this.setMapStyle = this.setMapStyle.bind(this);
 	}
 
 	setMapCenter(lng, lat, zoom=12) {
@@ -35,10 +39,21 @@ export class BikeMap extends React.Component {
 		})
 	}
 	
+	setMapStyle(viewMode) {
+		switch(viewMode) {
+			case UConstants.MAP_VIEW_SATELLITE:
+				this.map.setStyle(SATELLITE_MAP_STYLE);
+				break;
+			default:
+				this.map.setStyle(BASE_MAP_STYLE);
+				break;
+		}
+	}
+
 	componentDidMount() {		
 		this.map = new mapboxgl.Map({
 			container: this.mapContainer,
-			style: 'mapbox://styles/futureprog/ck8ntydhy13sh1ipr8hh0rbje/draft?key='+KEY,			
+			style: BASE_MAP_STYLE,			
 			center: [this.state.lng, this.state.lat],
 			zoom: this.state.zoom
 		});
@@ -170,7 +185,10 @@ export class BikeMap extends React.Component {
 		return (
 			<div>
 				{this.props.phase === UConstants.PHASE_ADD_P2? null : <SearchBar mapState={this.state} setMapCenter={this.setMapCenter}/>}
-				<GeolocateButton geolocate={this.geolocate}/>
+				<div className='map-control-container'>
+					<MapViewButton setMapStyle={this.setMapStyle} />
+					<GeolocateButton geolocate={this.geolocate}/>
+				</div>				
 				<div ref={el => this.mapContainer = el} className="mapContainer" />
 			</div>
 		)

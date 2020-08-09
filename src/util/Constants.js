@@ -22,6 +22,9 @@ export const MESSAGE_TYPE_ERROR = "MSG_TYPE_ERROR";
 export const MESSAGE_TYPE_SUCCESS = "MSG_TYPE_SUCCESS";
 export const MESSAGE_TYPE_NEUTRAL = "MSG_TYPE_NEUTRAL";
 
+export const MAP_VIEW_MAP = "MAP_VIEW";
+export const MAP_VIEW_SATELLITE = "SATELLITE_VIEW";
+
 export const ParkingOptions = [
 	{
 		value: 'stands',
