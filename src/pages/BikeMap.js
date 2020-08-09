@@ -14,7 +14,7 @@ import '../css/map.css';
 
 import {KEY} from '../key';
 mapboxgl.accessToken = KEY;
-const BASE_MAP_STYLE = 'mapbox://styles/futureprog/ck8ntydhy13sh1ipr8hh0rbje/draft?key='+KEY;
+const BASE_MAP_STYLE = 'mapbox://styles/futureprog/ck8ntydhy13sh1ipr8hh0rbje';
 const SATELLITE_MAP_STYLE = 'mapbox://styles/futureprog/ckdmn4me00c4j1iml9iu1yayf';
 
 export class BikeMap extends React.Component {
@@ -30,6 +30,75 @@ export class BikeMap extends React.Component {
 		this.geolocate = null;
 		this.setMapCenter = this.setMapCenter.bind(this);
 		this.setMapStyle = this.setMapStyle.bind(this);
+		this.initMapContents = this.initMapContents.bind(this);
+	}
+
+	initMapContents() {
+		console.log("draw map contents")
+		const map = this.map;
+		map.addSource('target', {
+			type: 'geojson',
+			data: {
+				type: 'FeatureCollection',
+				features: []
+			},
+			cluster: false					
+		});							
+		map.addSource('parking', {
+			type: 'geojson',
+			data: this.props.markerGeoJson,
+			cluster: true,
+			clusterMaxZoom:18,
+			clusterRadius: 50
+		});			
+		map.addLayer({
+			id: 'clusters',
+			type: 'symbol',
+			source: 'parking',
+			filter: ['has','point_count'],
+			layout: {
+				'icon-image': 'ClusterCircle',
+				'icon-size': 0.5,
+				'icon-allow-overlap': true
+			}				
+		});
+		map.addLayer({
+			id: 'cluster-count',
+			type: 'symbol',
+			source: 'parking',
+			filter: ['has','point_count'],
+			layout: {
+				'text-field': '{point_count_abbreviated}',
+				'text-font': ['Open Sans Bold'],
+				'text-size': 14,
+				'text-allow-overlap': true
+			},
+			paint: {
+				'text-color': '#fff'
+			}
+		});
+		map.addLayer({
+			id: 'unclustered-point',
+			type: 'symbol',
+			source: 'parking',
+			filter: ['!', ['has', 'point_count']],
+			layout: {
+				'icon-image': 'ParkingPin',
+				'icon-size': 0.5,
+				'icon-allow-overlap': true,
+				'icon-anchor': 'bottom'
+			}	
+		});
+		map.addLayer({
+			id: 'target-symbol',
+			type: 'symbol',
+			source: 'target',
+			layout: {
+				'icon-image': 'TargetRadar',
+				'icon-size': 1.0,
+				'icon-allow-overlap': true
+			}	
+		});	
 	}
 
 	setMapCenter(lng, lat, zoom=12) {
@@ -47,7 +116,8 @@ export class BikeMap extends React.Component {
 			default:
 				this.map.setStyle(BASE_MAP_STYLE);
 				break;
-		}
+		}		
+		//this.map.getSource('parking').setData(this.props.markerGeoJson);
 	}
 
 	componentDidMount() {		
@@ -80,71 +150,9 @@ export class BikeMap extends React.Component {
 			});
 		});	
 		this.map.on('load', function () {
-			props.queryOverpass();
-			map.addSource('target', {
-				type: 'geojson',
-				data: {
-					type: 'FeatureCollection',
-					features: []
-				},
-				cluster: false					
-			});							
-			map.addSource('parking', {
-				type: 'geojson',
-				data: props.markerGeoJson,
-				cluster: true,
-				clusterMaxZoom:18,
-				clusterRadius: 50
-			});
-			map.addLayer({
-				id: 'clusters',
-				type: 'symbol',
-				source: 'parking',
-				filter: ['has','point_count'],
-				layout: {
-					'icon-image': 'ClusterCircle',
-					'icon-size': 0.5,
-					'icon-allow-overlap': true
-				}				
-			});
-			map.addLayer({
-				id: 'cluster-count',
-				type: 'symbol',
-				source: 'parking',
-				filter: ['has','point_count'],
-				layout: {
-					'text-field': '{point_count_abbreviated}',
-					'text-font': ['Open Sans Bold'],
-					'text-size': 14,
-					'text-allow-overlap': true
-				},
-				paint: {
-					'text-color': '#fff'
-				}
-			});
-			map.addLayer({
-				id: 'unclustered-point',
-				type: 'symbol',
-				source: 'parking',
-				filter: ['!', ['has', 'point_count']],
-				layout: {
-					'icon-image': 'ParkingPin',
-					'icon-size': 0.5,
-					'icon-allow-overlap': true,
-					'icon-anchor': 'bottom'
-				}	
-			});
-			map.addLayer({
-				id: 'target-symbol',
-				type: 'symbol',
-				source: 'target',
-				layout: {
-					'icon-image': 'TargetRadar',
-					'icon-size': 1.0,
-					'icon-allow-overlap': true
-				}	
-			});	
-		});			
+			props.queryOverpass();							
+		});	
+		this.map.on('style.load', this.initMapContents);
 	}	
 
 	componentDidUpdate(prevProps) {
