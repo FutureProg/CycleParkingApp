@@ -1,3 +1,7 @@
+A mobile-first Bicycle Parking Web App that allows users to view and add bicycle parking in the City of Mississauga. 
+
+
+# Default Yarn Instructions Below
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
