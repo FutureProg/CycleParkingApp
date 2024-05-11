@@ -1,4 +1,27 @@
-A mobile-first Bicycle Parking Web App that allows users to view and add bicycle parking in the City of Mississauga. 
+A mobile-first Bicycle Parking Web App that allows users to view and add bicycle parking in the Region of Halton while out and about. This app was formerly limited to the City of Mississauga. <br/>
+## "Business Case"
+At the time of inception barriers were identified from some existing applications with similar functionalities:
+- Requirement to create an account to submit a parking spot
+- Needed to download an app on your device
+
+### Mobile Screenshots
+<div style="display: grid; grid-template-rows: 400px; grid-template-columns: 1fr 1fr 1fr; align-items: center; justify-content: space-evenly;">
+    <img src="./screenshot_1_mobile.png" alt="view when opening the web app on mobile"/>    
+    <img src="./screenshot_2_mobile.png" alt="view when preparing to add a bicycle parking on mobile"/>    
+    <img src="./screenshot_3_mobile.png" alt="view when adding bicycle parking on mobile"/>
+</div>
+
+
+### Desktop Screenshots
+<div style="display: grid; grid-template-rows: 400px; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; column-gap: 5px; row-gap: 5px; justify-content: center;">
+    <img src="./screenshot_1.png" alt="view when opening the web app on desktop"/>
+    <img src="./screenshot_2.png" alt="view when preparing to add a bicycle parking on desktop"/>
+    <img src="./screenshot_3.png" alt="view when adding bicycle parking on desktop"/>    
+</div>
+
+
+### Mobile Screenshots
+
 
 
 # Default Yarn Instructions Below
