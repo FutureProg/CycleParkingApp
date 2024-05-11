@@ -22,9 +22,9 @@ export class BikeMap extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			lat: 43.5890,
-			lng: -79.6441,
-			zoom: 12
+			lat: 43.5103021,
+			lng: -79.9638755,
+			zoom: 11
 		}
 		this.map = null;
 		this.geolocate = null;
