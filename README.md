@@ -5,24 +5,19 @@ At the time of inception barriers were identified from some existing application
 - Needed to download an app on your device
 
 ### Mobile Screenshots
-<div style="display: grid; grid-template-rows: 400px; grid-template-columns: 1fr 1fr 1fr; align-items: center; justify-content: space-evenly;">
-    <img src="./screenshot_1_mobile.png" alt="view when opening the web app on mobile"/>    
-    <img src="./screenshot_2_mobile.png" alt="view when preparing to add a bicycle parking on mobile"/>    
-    <img src="./screenshot_3_mobile.png" alt="view when adding bicycle parking on mobile"/>
+<div style="text-align: center">
+    <img width="30%" src="./screenshot_1_mobile.png" alt="view when opening the web app on mobile"/>    
+    <img width="30%" src="./screenshot_2_mobile.png" alt="view when preparing to add a bicycle parking on mobile"/>    
+    <img width="30%" src="./screenshot_3_mobile.png" alt="view when adding bicycle parking on mobile"/>
 </div>
 
 
 ### Desktop Screenshots
-<div style="display: grid; grid-template-rows: 400px; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; column-gap: 5px; row-gap: 5px; justify-content: center;">
-    <img src="./screenshot_1.png" alt="view when opening the web app on desktop"/>
-    <img src="./screenshot_2.png" alt="view when preparing to add a bicycle parking on desktop"/>
-    <img src="./screenshot_3.png" alt="view when adding bicycle parking on desktop"/>    
+<div style="text-align: center">
+    <img width="49%" src="./screenshot_1.png" alt="view when opening the web app on desktop"/>
+    <img width="49%" src="./screenshot_2.png" alt="view when preparing to add a bicycle parking on desktop"/>
+    <img width="50%" src="./screenshot_3.png" alt="view when adding bicycle parking on desktop"/>    
 </div>
-
-
-### Mobile Screenshots
-
-
 
 # Default Yarn Instructions Below
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
